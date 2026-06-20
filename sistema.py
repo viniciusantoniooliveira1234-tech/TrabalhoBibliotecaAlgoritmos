@@ -41,3 +41,9 @@ def alterardados(lista,codigo,titulo,autor,ano):
             i.ano = ano
             return True
     return False
+def removerlivro(lista,codigo):
+    for i in lista:
+        if i.codigo == codigo:
+            lista.remove(i)
+            return True
+    return False
