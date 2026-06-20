@@ -32,3 +32,12 @@ def consultar(lista,autor,codigo):
             print(resultados[i])
     else:
         print("Livro não encontrado")
+
+def alterardados(lista,codigo,titulo,autor,ano):
+    for i in lista:
+        if i.codigo == codigo:
+            i.titulo = titulo
+            i.autor = autor
+            i.ano = ano
+            return True
+    return False
