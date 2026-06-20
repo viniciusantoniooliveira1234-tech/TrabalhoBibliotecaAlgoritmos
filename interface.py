@@ -77,7 +77,7 @@ def init(lista):
         if resultados:
             print("Livro cadastrado com sucesso")
         else:
-            print("Código do livro duplicado, tente novamente")
+            print("erro, tente novamente")
         menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
     
     #renderizar consulta

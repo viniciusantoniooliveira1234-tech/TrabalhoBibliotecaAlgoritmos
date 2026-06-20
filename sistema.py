@@ -9,10 +9,13 @@ def cadastrar(lista,titulo,autor,ano,codigo,status):
     livro.autor = autor
     livro.ano = ano
     livro.codigo = codigo
-    if int(status) == 1:
+    if status == "1":
         livro.status = "Disponivel"
     else:
-        livro.status = "Emprestado"
+        if status == "0":
+            livro.status = "Emprestado"
+        else:
+            return False
     lista.append(livro)
     return True
 
