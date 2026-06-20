@@ -28,7 +28,7 @@ def init(lista):
     consultabutton = Button(menuframe,text="Consultar livro",command=lambda:consultalivro(lista,menuframe))
     alterarbutton = Button(menuframe,text="Alterar livro", command=lambda:alterarint(lista,menuframe))
     removerbutton = Button(menuframe,text="Remover livro", command=lambda:removerlivroint(lista,menuframe))
-    listarbutton = Button(menuframe,text="Listar livros")
+    listarbutton = Button(menuframe,text="Listar livros", command=lambda:listarlivrosint(lista))
     emprestimobutton = Button(menuframe,text="Empréstimo de livro")
     devolucaobutton = Button(menuframe,text="Devolver Livro")
     sairbutton = Button(menuframe,text="Sair")
@@ -97,12 +97,14 @@ def init(lista):
         autorentry.pack()
         salvarbutton = Button(consultaframe,text="Consultar",command=lambda:consultarlivro(lista,codigoentry,autorentry,consultaframe))
         salvarbutton.pack()
+    #encontrar livros
     def consultarlivro(lista,codigoentry,autorentry,consultaframe):
         codigo = codigoentry.get()
         autor = autorentry.get()
         sistema.consultar(lista,autor,codigo)
         consultaframe.pack_forget()
         menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
+
     #interface alterar dados
     def alterarint(lista,menuframe):
         menuframe.pack_forget()
@@ -128,7 +130,7 @@ def init(lista):
         anoentry.pack()
         salvarbutton = Button(alterarframe,text="Salvar alterações",command=lambda:alterardados(lista,codigoentry,tituloentry,autorentry,anoentry,alterarframe))
         salvarbutton.pack()
-    #Salvar os dados
+    #alterar os dados
     def alterardados(lista,codigoentry,tituloentry,autorentry,anoentry,alterarframe):
         alterarframe.pack_forget()
         codigo = codigoentry.get()
@@ -141,6 +143,7 @@ def init(lista):
         else:
             print("Código não encontrado, tente novamente")
         menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
+    #interface para remover o livro
     def removerlivroint(lista,menuframe):
         menuframe.pack_forget()
         removerlivroframe = Frame(janela)
@@ -151,6 +154,7 @@ def init(lista):
         removeentry.pack()
         salvarbutton = Button(removerlivroframe,text="Remover livro",command=lambda:removerlivro(lista,removerlivroframe,removeentry))
         salvarbutton.pack()
+    #remover o livro
     def removerlivro(lista,removerlivroframe,removeentry):
         removerlivroframe.pack_forget()
         codigo = removeentry.get()
@@ -158,7 +162,11 @@ def init(lista):
         if resultados:
             print("Livro salvo com sucesso")
         else:
-            print("Erro, tente novamente")
+            print("Livro não encontrado")
         menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
+
+    #interface para listar os livros
+    def listarlivrosint(lista):
+        sistema.listarlivros(lista)
     janela.mainloop()
 
