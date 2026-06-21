@@ -13,10 +13,10 @@ def cadastrar(lista,titulo,autor,ano,codigo,status):
     livro.codigo = codigo
     #dependendo do numero altera para disponivel ou emprestado
     if status == "1":
-        livro.status = "Disponivel"
+        livro.status = "disponivel"
     else:
         if status == "0":
-            livro.status = "Emprestado"
+            livro.status = "emprestado"
         else:
             return False
     lista.append(livro)
@@ -62,3 +62,21 @@ def listarlivros(lista):
     print("Livros Encontrados:")
     for i in lista:
         print("Título:",i.titulo,"Ano:",i.ano)
+
+#emprestimo e devolucao
+def emprestimo(lista,codigo):
+    for i in lista:
+        if i.codigo == codigo:
+            if i.status == "disponivel":
+                i.status = "emprestado"
+                return True
+            if i.status =="emprestado":
+                return False
+def devolucao(lista,codigo):
+    for i in lista:
+        if i.codigo == codigo:
+            if i.status == "emprestado":
+                i.status = "disponivel"
+                return True
+            if i.status =="disponivel":
+                return False

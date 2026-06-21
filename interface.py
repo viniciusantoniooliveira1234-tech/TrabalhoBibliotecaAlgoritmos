@@ -14,8 +14,6 @@ def menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbu
     emprestimobutton.pack()
     devolucaobutton.pack()
     sairbutton.pack()
-    for i in lista:
-        print(i.titulo,i.autor,i.ano,i.codigo,i.status)
 
 def init(lista):
     janela = Tk()
@@ -29,9 +27,9 @@ def init(lista):
     alterarbutton = Button(menuframe,text="Alterar livro", command=lambda:alterarint(lista,menuframe))
     removerbutton = Button(menuframe,text="Remover livro", command=lambda:removerlivroint(lista,menuframe))
     listarbutton = Button(menuframe,text="Listar livros", command=lambda:listarlivrosint(lista))
-    emprestimobutton = Button(menuframe,text="Empréstimo de livro")
-    devolucaobutton = Button(menuframe,text="Devolver Livro")
-    sairbutton = Button(menuframe,text="Sair")
+    emprestimobutton = Button(menuframe,text="Empréstimo de livro",command=lambda:emprestimoint(lista,menuframe))
+    devolucaobutton = Button(menuframe,text="Devolver Livro",command=lambda:devolucaoint(lista,menuframe))
+    sairbutton = Button(menuframe,text="Sair",command=lambda:sair())
 
     menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
 
@@ -168,5 +166,49 @@ def init(lista):
     #interface para listar os livros
     def listarlivrosint(lista):
         sistema.listarlivros(lista)
+    #empresitmo de livro interface
+    def emprestimoint(lista,menuframe):
+        menuframe.pack_forget()
+        emprestimoframe = Frame(janela)
+        emprestimoframe.pack()
+        codigotxt = Label(emprestimoframe, text="Digite o codigo do livro que deseja fazer o empréstimo:")
+        codigotxt.pack()
+        codigoentry = Entry(emprestimoframe)
+        codigoentry.pack()
+        salvarbutton = Button(emprestimoframe, text="Realizar empréstimo",command=lambda:emprestimo(lista,codigoentry,emprestimoframe))
+        salvarbutton.pack()
+    #Realizar emprestimo
+    def emprestimo(lista,codigoentry,emprestimoframe):
+        emprestimoframe.pack_forget()
+        codigo = codigoentry.get()
+        resultado = sistema.emprestimo(lista,codigo)
+        if resultado:
+            print("Emprestimo realizado com sucesso")
+        else:
+            print("Livro não disponivel")
+        menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
+    #devolucao interface
+    def devolucaoint(lista,menuframe):
+        menuframe.pack_forget()
+        devolucaoframe = Frame(janela)
+        devolucaoframe.pack()
+        codigotxt = Label(devolucaoframe, text="Digite o codigo do livro que deseja devolver:")
+        codigotxt.pack()
+        codigoentry = Entry(devolucaoframe)
+        codigoentry.pack()
+        salvarbutton = Button(devolucaoframe, text="Realizar devolucao",command=lambda:devolucao(lista,codigoentry,devolucaoframe))
+        salvarbutton.pack()
+    #Realizar devolucao
+    def devolucao(lista,codigoentry,devolucaoframe):
+        devolucaoframe.pack_forget()
+        codigo = codigoentry.get()
+        resultado = sistema.devolucao(lista,codigo)
+        if resultado:
+            print("devolucao realizado com sucesso")
+        else:
+            print("Livro já esta disponível")
+        menuint(menuframe,mntxt,mntxt2,cadastrobutton,lista,consultabutton,alterarbutton,removerbutton,listarbutton,emprestimobutton,devolucaobutton,sairbutton)
+    def sair():
+        quit()
     janela.mainloop()
 
